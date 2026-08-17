@@ -1,0 +1,36 @@
+2026-08-10T09:58:01Z api INFO Service started on port 3000
+2026-08-10T09:58:02Z auth INFO Service started on port 4000
+2026-08-10T09:58:02Z payments INFO Service started on port 5000
+2026-08-10T09:58:03Z database INFO Accepting connections
+2026-08-10T09:58:04Z cache INFO Warmed 1200 keys in 340ms
+2026-08-10T09:59:10Z api INFO GET /api/todos 200 12ms
+2026-08-10T10:00:00Z worker INFO Nightly export batch started
+2026-08-10T10:00:41Z api INFO GET /api/todos 200 9ms
+2026-08-10T10:01:22Z database WARN Slow query detected duration=2103ms
+2026-08-10T10:02:05Z auth ERROR Connection timeout to token service
+2026-08-10T10:02:06Z api INFO POST /api/todos 201 18ms
+2026-08-10T10:02:31Z auth ERROR Connection timeout to token service
+2026-08-10T10:03:14Z cache WARN Evicted 300 keys under memory pressure
+2026-08-10T10:03:59Z payments ERROR Card gateway returned HTTP 502
+2026-08-10T10:04:12Z api WARN Response time above threshold duration=1650ms
+2026-08-10T10:04:40Z worker INFO Nightly export batch completed rows=51230
+2026-08-10T10:05:03Z auth ERROR Token validation failed for session 8f3a
+2026-08-10T10:05:47Z payments ERROR Card gateway returned HTTP 502
+2026-08-10T10:06:15Z database WARN Connection pool 90 percent utilised
+2026-08-10T10:06:52Z api ERROR HTTP 500 on POST /api/todos
+2026-08-10T10:07:33Z payments INFO Retrying gateway request attempt=2
+2026-08-10T10:08:04Z payments ERROR Card gateway returned HTTP 502
+2026-08-10T10:08:19Z database ERROR Deadlock detected on table orders
+2026-08-10T10:08:45Z cache INFO Hit ratio 94 percent
+2026-08-10T10:09:27Z auth ERROR Connection timeout to token service
+2026-08-10T10:10:02Z api ERROR HTTP 500 on POST /api/todos
+2026-08-10T10:10:40Z api INFO Error rate returning to normal
+2026-08-10T10:11:19Z cache WARN Evicted 450 keys under memory pressure
+2026-08-10T10:12:00Z api INFO GET /health 200 2ms
+2026-08-10T10:12:31Z auth INFO Token service connection restored
+2026-08-10T10:13:05Z payments INFO Gateway request succeeded attempt=3
+2026-08-10T10:14:44Z api INFO GET /api/todos 200 11ms
+2026-08-10T10:15:20Z worker INFO Queue depth 0
+2026-08-10T10:16:02Z database INFO Autovacuum completed table=todos
+2026-08-10T10:18:11Z api INFO GET /api/todos 200 8ms
+2026-08-10T10:21:37Z api WARN Response time above threshold duration=1210ms
