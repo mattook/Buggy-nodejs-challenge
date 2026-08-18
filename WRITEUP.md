@@ -37,8 +37,9 @@ problems? Why do they matter, and what could someone actually do with them?
   1. `cd app && npm install`
   2. Create and set `ADMIN_TOKEN=appvia-admin-8f3kd92` on `app/.env`.
   3. `npm start` — the app listens on port 3000 (`http://localhost:3000`).
-- Log tool: not yet implemented — `analyse.sh` does not exist in this
-  submission yet.
+- Log tool: 
+  1. Make the script executable from the root (one-time setup): `chmod +x analyse.sh`
+  2. Run as `./analyse.sh <LEVEL> <path-to-log-file>`
 - Anything else an engineer needs to know to run or test my work:
   - `POST /api/admin/reset` requires the header `x-admin-token: <value of
     ADMIN_TOKEN from your .env>`; any other value (or no header) returns `403`.
@@ -50,9 +51,9 @@ problems? Why do they matter, and what could someone actually do with them?
 Exactly three, in priority order, with your reasoning for both the choice and
 the order.
 
-1.
-2.
-3.
+1. The app should save tasks between restarts so that users dont lose all their changes after maintenance or crashes. The entire purpose of the app is "track my tasks" so this is the most important improvement.
+2. There should be a cap on requests so that users cant flood the api and degrade the app or make it crash. This is the most important security update because it is the easiest to exploit.
+3. Automated tests (CI gate) must be implemented to keep bugs squashed. It would save many hours of human review, and developers could confidently work on the app because they'd be alerted of any issues on every PR. The app would still be completely functional without this improvement, which is why 1 and 2 take priority.
 
 ## 5. Optional extensions (if attempted)
 
@@ -65,6 +66,8 @@ Which tools (if any), what you used them for, where they helped, and where
 they were wrong or you overrode them. Honesty here is a positive signal.
 
 I used claude code integrated into vscode to write code and table entries in part 1. I did one 'task' at a time, so that in between them I could consolidate my understanding by checking the code; rewriting the entry in simpler terms; and verifing API hits with postman. Additionally, claude's fix for entry 9 felt rough since it did not actually install and use dotenv, so I loaded an env file into the app myself and put the original token inside of it.
+
+I also used claude code to write up the analyse tool in bash and python. I then added comments and type hints to make sure the code was clean and understandable.
 
 ## 7. Reflections
 
