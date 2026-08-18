@@ -5,8 +5,8 @@ const _ = require('lodash');
 
 const app = express();
 
-const PORT = 300;
-const ADMIN_TOKEN = 'appvia-admin-8f3kd92';
+const PORT = 3000;
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -29,7 +29,10 @@ app.get('/api/todos', (req, res) => {
 });
 
 app.post('/api/todos', (req, res) => {
-  const text = req.body.text.trim();
+  const text = typeof req.body?.text === 'string' ? req.body.text.trim() : '';
+  if (!text) {
+    return res.status(400).json({ error: 'text is required' });
+  }
   const todo = {
     id: nextId++,
     text: text,
@@ -41,7 +44,8 @@ app.post('/api/todos', (req, res) => {
 });
 
 app.put('/api/todos/:id', (req, res) => {
-  const todo = todos.find((t) => t.id === req.params.id);
+  const id = Number(req.params.id);
+  const todo = todos.find((t) => t.id === id);
   if (!todo) {
     return res.status(404).json({ error: 'Todo not found' });
   }
@@ -50,7 +54,12 @@ app.put('/api/todos/:id', (req, res) => {
 });
 
 app.delete('/api/todos/:id', (req, res) => {
-  todos.splice(req.params.id, 1);
+  const id = Number(req.params.id);
+  const index = todos.findIndex((t) => t.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Todo not found' });
+  }
+  todos.splice(index, 1);
   res.status(204).end();
 });
 
@@ -58,13 +67,12 @@ app.get('/api/debug', (req, res) => {
   res.json({
     uptime: process.uptime(),
     memory: process.memoryUsage(),
-    env: process.env,
     todoCount: todos.length
   });
 });
 
 app.post('/api/admin/reset', (req, res) => {
-  if (req.headers['x-admin-token'] !== ADMIN_TOKEN) {
+  if (!ADMIN_TOKEN || req.headers['x-admin-token'] !== ADMIN_TOKEN) {
     return res.status(403).json({ error: 'Forbidden' });
   }
   todos = [];
