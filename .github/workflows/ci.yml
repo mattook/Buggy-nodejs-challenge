@@ -63,7 +63,9 @@ jobs:
     needs: [lint, test, audit]
     runs-on: ubuntu-latest
     steps:
-      - run: echo "All quality checks passed."
+      - name: Confirm all quality checks passed
+        working-directory: .
+        run: echo "All quality checks passed."
 
   build:
     name: Build
@@ -99,6 +101,3 @@ jobs:
           done
           echo "Server did not become healthy in time." >&2
           exit 1
-
-      # TODO: deploy step goes here (target/platform not yet decided).
-      # e.g. push the artifact above to a registry, or deploy to a host/PaaS.
