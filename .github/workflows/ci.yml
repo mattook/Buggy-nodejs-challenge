@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+defaults:
+  run:
+    working-directory: app
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  lint:
+    name: Quality / Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+
+  # No "type checking" job: the app is plain JavaScript, no TypeScript is used.
+
+  test:
+    name: Quality / Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm test
+        env:
+          ADMIN_TOKEN: ci-test-token
+
+  audit:
+    name: Quality / Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      # Separate step (and job) from lint/test on purpose: a failure here is a
+      # vulnerability finding, not a code-quality failure, and should be
+      # immediately distinguishable as such in the Actions log.
+      - run: npm audit --audit-level=high
+
+  quality:
+    name: Quality
+    needs: [lint, test, audit]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All quality checks passed."
+
+  build:
+    name: Build
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci --omit=dev
+
+      - name: Package deployable artifact
+        run: tar -czf ../taskboard-build.tar.gz --exclude=.env .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: taskboard-build
+          path: taskboard-build.tar.gz
+
+      - name: Smoke test — server boots and answers /health
+        run: |
+          node server.js &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          for _ in $(seq 1 10); do
+            if curl -sf http://localhost:3000/health > /dev/null; then
+              echo "Server is up."
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Server did not become healthy in time." >&2
+          exit 1
+
+      # TODO: deploy step goes here (target/platform not yet decided).
+      # e.g. push the artifact above to a registry, or deploy to a host/PaaS.

@@ -60,6 +60,22 @@ the order.
 Which did you pick, why, how far did you get, and what would you finish with
 more time?
 
+I picked **Tests** and **Automated Checks** because they work together in a CI pipeline, and gave me the opportunity to do something fun which I've been wanting to practice.
+
+On every push and pull request, `.github/workflows/ci.yml` runs:
+
+- **`lint`** — `npm run lint`
+- **`test`** — `npm test` The tests use Jest + Supertest and hit Express directly.One test exists per bug in the table.
+- **`audit`** — `npm audit --audit-level=high`, as its own job so a
+  vulnerability finding is distinguishable from a lint/test failure
+- **`quality`** — a no-op gate that waits on all three above (`lint`,
+  `test`, `audit` run in parallel; `quality` just confirms they all passed)
+- **`build`** — installs dependencies, packages `app/` (excluding `.env`)
+  as a downloadable artifact, then boots the real server and polls
+  `/health` as a smoke test.
+
+To run tests locally, `cd app && npm run lint && npm test && npm audit --audit-level=high`
+
 ## 6. How I used AI tools
 
 Which tools (if any), what you used them for, where they helped, and where

@@ -81,6 +81,10 @@ app.post('/api/admin/reset', (req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(PORT, () => {
-  console.log('Taskboard running at http://localhost:3000');
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('Taskboard running at http://localhost:3000');
+  });
+}
+
+module.exports = app;
