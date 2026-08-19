@@ -87,6 +87,6 @@ I also used claude code to write up the analyse tool in bash and python. I then 
 
 ## 7. Reflections
 
-- The hardest part of this exercise was:
-- One thing I learned doing it:
-- If I had another day, I would:
+- The hardest part of this exercise was: A lot of the difficulty came from understanding node js, having come from using Flask, but specifically, it was challenging building a ci pipeline and understanding how to integrate the dependencies in node js. 
+- One thing I learned doing it: How to spot and deal with common security issues in a node js app.
+- If I had another day, I would: Find and implement a storage system so that tasks are saved between boots. Instinctively, I think of using PostgreSQL locally, but I'd be interested in finding out the best way to store data for an app like this.
