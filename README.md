@@ -1,22 +1,6 @@
-# Appvia Academy graduate technical challenge
-
-Welcome, and thank you for applying to the Appvia Academy!
-
-This short technical challenge is the next step in our process. It is designed to
-reflect the kind of work a Graduate Platform Engineer actually does: taking over
-something you didn't write, working out why it doesn't behave, fixing it
-carefully, and explaining your reasoning to others.
-
-**You do not need any AWS, Terraform, Kubernetes or Docker experience to
-complete the core tasks.** We teach those in the Academy. What we are looking
-for is problem-solving, attention to detail, engineering judgement, and clear
-communication.
-
----
-
 ## The scenario
 
-You've just joined the platform team at Appvia. You've inherited
+You've inherited
 **Taskboard**: a small internal task tracker built by an engineer who has
 since left the company.
 
@@ -191,48 +175,4 @@ sensible fallback.
 ## Use of AI tools
 
 You may use documentation, search engines and AI tools (ChatGPT, Claude,
-Copilot, ...) during this exercise: they are tools engineers use in real
-work, and we use them at Appvia too.
-
-Two conditions:
-
-1. Tell us honestly in your write-up how you used them (there's a section for
-   it). Using AI well is a positive signal; hiding it is not.
-2. You remain responsible for understanding everything you submit. At the
-   Assessment Day we will ask you to explain your changes and your reasoning
-   in your own words.
-
----
-
-## Time, deadline and submission
-
-- **Expected effort:** roughly 2–3 hours for the core parts. Please don't
-  spend more than about 5 hours in total, including extensions. This is not
-  a test of endurance, and we'd rather see focused work and honest reflection
-  than everything polished.
-- **Deadline:** within **5 days** of receiving this challenge (the exact date
-  is in the email we sent you).
-
-**How to submit (both steps, please):**
-
-1. Push your work to a **private** GitHub repository and invite the
-   following GitHub user(s) as collaborators: `KashifSaadat`, `M-Hood`, `mrsheepuk`, `m13t`, `mike-guy`, `Amir-Tayabali`, `salmaniqbal`.
-   Commit as you go with meaningful messages. Your history helps us
-   understand how you approached the work (there is no "right" number of
-   commits).
-2. Email the repository link **and** a zip of the repository contents
-   (excluding `node_modules/`) to `tech-test-submissions@appvia.io`.
-
-Your submission should contain the fixed `app/`, your `analyse.sh` (plus
-any supporting files), and your completed `WRITEUP.md`.
-
----
-
-## Questions
-
-If anything is unclear or broken in a way that seems unintended, email us at
-`talent@appvia.io`. Asking a good question is never held against you.
-
-Good luck, and we look forward to reading your work!
-
-*The Appvia Academy team*
+Copilot, ...) during this exercise.
